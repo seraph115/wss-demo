@@ -1,5 +1,6 @@
 # WSS-DEMO
 
+### the fake Customer Data Insert SQL
 ```
 INSERT INTO customer (name, phone, company) VALUES
 ('张伟', '13800138000', '华为技术有限公司'),
@@ -15,7 +16,13 @@ INSERT INTO customer (name, phone, company) VALUES
 ```
 
 ## Calling API to trigger data push via Postman tools
-Enter 'Customer ID' number in the Body
+
+### Enter the 'Customer ID' number in the Body
 ```
 http://localhost:8080/api/customer/push
+```
+
+### WebSocket Client HTML page
+```
+http://localhost:8080/index.html
 ```
