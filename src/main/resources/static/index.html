@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Customer Display</title>
+</head>
+<body>
+<h1>Customer Data</h1>
+
+<!-- 清除数据的按钮 -->
+<button onclick="clearMessages()">Clear Screen</button>
+
+<!-- 显示数据的列表 -->
+<ul id="messages"></ul>
+
+<script>
+    function connectWebSocket() {
+        // 创建 WebSocket 连接
+        const socket = new WebSocket('ws://localhost:8080/wss/customer'); // 云傲WebSocket通道
+
+        socket.onopen = function() {
+            console.log('WebSocket connection opened');
+        };
+
+        socket.onmessage = function(event) {
+            const message = JSON.parse(event.data);
+            const timestamp = formatTimestamp(message.timestamp); // 格式化时间戳
+            const customer = message.customer;
+
+            const messageList = document.getElementById('messages');
+            const newMessage = document.createElement('li');
+            newMessage.textContent = `${timestamp} - Name: ${customer.name}, Phone: ${customer.phone}, Company: ${customer.company}`;
+            messageList.appendChild(newMessage);
+        };
+
+        // 尝试连接 WebSocket
+        socket.onclose = function(event) {
+            console.log('WebSocket connection closed, attempting to reconnect...');
+            setTimeout(connectWebSocket, 5000); // 5秒后尝试重新连接
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error: ', error);
+        };
+    }
+    connectWebSocket();
+
+    // 格式化时间戳为 yyyy-MM-dd hh:mm:ss
+    function formatTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    // 清除屏幕上显示的数据
+    function clearMessages() {
+        const messageList = document.getElementById('messages');
+        messageList.innerHTML = ''; // 清空列表内容
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Data</title>
+</head>
+<body>
+
+<h1>Customer Data</h1>
+<ul id="customers"></ul>
+
+<script>
+    const socket = new WebSocket('ws://localhost:8080/wss/customer');
+
+    socket.onmessage = function (event) {
+        const customers = JSON.parse(event.data);
+        const customerList = document.getElementById('customers');
+        customerList.innerHTML = '';
+        customers.forEach(customer => {
+            const li = document.createElement('li');
+            li.textContent = `${customer.name} (${customer.phone}) - ${customer.company}`;
+            customerList.appendChild(li);
+        });
+    };
+</script>
+
+</body>
+</html>
