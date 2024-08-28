@@ -31,7 +31,7 @@ INSERT INTO customer (name, phone, company) VALUES
 
 ### Enter the 'Customer ID' number in the Body
 ```
-http://localhost:8080/api/customer/push
+[http://localhost:8080/api/customer/push](http://localhost:8080/api/customer/push)
 ```
 
 ### WebSocket Client HTML page
