@@ -1,7 +1,7 @@
 # WSS-DEMO
 
-'''
-INSERT INTO customer (name, phone, company) VALUES 
+```
+INSERT INTO customer (name, phone, company) VALUES
 ('张伟', '13800138000', '华为技术有限公司'),
 ('王芳', '13800138001', '阿里巴巴集团控股有限公司'),
 ('李强', '13800138002', '腾讯控股有限公司'),
@@ -12,4 +12,6 @@ INSERT INTO customer (name, phone, company) VALUES
 ('孙娜', '13800138007', '字节跳动有限公司'),
 ('周鑫', '13800138008', '拼多多'),
 ('吴彤', '13800138009', '网易公司');
-'''
+```
+
+
