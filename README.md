@@ -3,7 +3,7 @@
 ## Demo Database Init
 
 ### Create Table SQL 
-```
+```sql
 CREATE TABLE customer (
     id INT AUTO_INCREMENT PRIMARY KEY,
     phone VARCHAR(20) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE customer (
 ```
 
 ### the fake Customer Data Insert SQL
-```
+```sql
 INSERT INTO customer (name, phone, company) VALUES
 ('张伟', '13800138000', '华为技术有限公司'),
 ('王芳', '13800138001', '阿里巴巴集团控股有限公司'),
