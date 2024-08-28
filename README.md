@@ -14,4 +14,8 @@ INSERT INTO customer (name, phone, company) VALUES
 ('吴彤', '13800138009', '网易公司');
 ```
 
-
+## Calling API to trigger data push via Postman tools
+Enter 'Customer ID' number in the Body
+```
+http://localhost:8080/api/customer/push
+```
