@@ -1,5 +1,17 @@
 # WSS-DEMO
 
+## Demo Database Init
+
+### Create Table SQL 
+```
+CREATE TABLE customer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    phone VARCHAR(20) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    company VARCHAR(100)
+);
+```
+
 ### the fake Customer Data Insert SQL
 ```
 INSERT INTO customer (name, phone, company) VALUES
