@@ -2,7 +2,7 @@ package com.example.wss.controller;
 
 import com.example.wss.model.Customer;
 import com.example.wss.service.CustomerService;
-import com.example.wss.websocket.CustomerWebSocketHandler;
+import com.example.wss.handler.CustomerWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

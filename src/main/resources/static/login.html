@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login</title>
+</head>
+<body>
+<h2>Login</h2>
+<form id="login-form">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required>
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <br>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // 向后端发送登录请求
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    })
+            .then(response => {
+              if (response.ok) {
+                return response.text(); // 返回JWT
+              } else {
+                throw new Error('Login failed');
+              }
+            })
+            .then(token => {
+              // 将JWT存储在LocalStorage中
+              localStorage.setItem('jwtToken', token);
+              alert('Login successful! Redirecting to WebSocket page.');
+
+              // 跳转到 WebSocket 页面 (wss.html)
+              window.location.href = '/wss.html';
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Login failed. Please try again.');
+            });
+  });
+</script>
+</body>
+</html>

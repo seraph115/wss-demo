@@ -16,14 +16,22 @@
 
 <script>
     function connectWebSocket() {
-        // 创建 WebSocket 连接
-        const socket = new WebSocket('ws://localhost:8080/wss/customer'); // 云傲WebSocket通道
 
-        socket.onopen = function() {
+        // 从LocalStorage获取JWT Token
+        const jwtToken = localStorage.getItem('jwtToken');
+
+        // 创建 WebSocket 连接
+        const socket = new WebSocket('ws://localhost:8080/wss/customer', [], {
+            headers: {
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+
+        socket.onopen = function () {
             console.log('WebSocket connection opened');
         };
 
-        socket.onmessage = function(event) {
+        socket.onmessage = function (event) {
             const message = JSON.parse(event.data);
             const timestamp = formatTimestamp(message.timestamp); // 格式化时间戳
             const customer = message.customer;
@@ -35,15 +43,16 @@
         };
 
         // 尝试连接 WebSocket
-        socket.onclose = function(event) {
+        socket.onclose = function (event) {
             console.log('WebSocket connection closed, attempting to reconnect...');
             setTimeout(connectWebSocket, 5000); // 5秒后尝试重新连接
         };
 
-        socket.onerror = function(error) {
+        socket.onerror = function (error) {
             console.error('WebSocket error: ', error);
         };
     }
+
     connectWebSocket();
 
     // 格式化时间戳为 yyyy-MM-dd hh:mm:ss

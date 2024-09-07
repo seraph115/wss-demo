@@ -1,4 +1,4 @@
-package com.example.wss.websocket;
+package com.example.wss.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;

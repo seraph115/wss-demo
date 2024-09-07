@@ -1,4 +1,4 @@
-package com.example.wss.websocket;
+package com.example.wss.handler;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;

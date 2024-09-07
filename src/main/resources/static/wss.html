@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Page</title>
+</head>
+<body>
+<h2>WebSocket Page</h2>
+<ul id="messages"></ul>
+
+<script>
+    // WebSocket相关的全局变量
+    let socket;
+    let reconnectInterval = 1000; // 重连间隔，初始1秒
+
+    // 从LocalStorage获取JWT Token
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+        alert('You are not authenticated! Redirecting to login page.');
+        window.location.href = '/login.html'; // 如果没有JWT，重定向到登录页面
+    }
+
+    // WebSocket连接函数
+    function connect() {
+        // 创建WebSocket连接
+        socket = new WebSocket('ws://localhost:8080/wss/customer?token=' + jwtToken);
+
+        socket.onopen = function() {
+            console.log('WebSocket connection opened');
+            reconnectInterval = 1000;  // 成功连接后重置重连间隔
+        };
+
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const message = `Name: ${data.name}, Phone: ${data.phone}, Company: ${data.company}, Time: ${data.timestamp}`;
+            const li = document.createElement('li');
+            li.textContent = message;
+            document.getElementById('messages').appendChild(li);
+        };
+
+        socket.onclose = function(event) {
+            console.log(`WebSocket connection closed: ${event.reason}`);
+            attemptReconnect();  // 当连接关闭时，尝试重连
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+            socket.close();  // 遇到错误时关闭连接，触发重连逻辑
+        };
+    }
+
+    // 尝试重新连接函数
+    function attemptReconnect() {
+        if (reconnectInterval <= 16000) {  // 最大延迟16秒
+            console.log(`Attempting to reconnect in ${reconnectInterval / 1000} seconds...`);
+            setTimeout(() => {
+                connect();  // 再次尝试连接
+            }, reconnectInterval);
+            reconnectInterval *= 2;  // 指数递增重连时间间隔
+        }
+    }
+
+    // 初始连接
+    connect();
+</script>
+</body>
+</html>
