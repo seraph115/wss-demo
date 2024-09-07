@@ -30,11 +30,6 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
-        <!-- Spring Boot WebSocket Starter -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
 
         <!-- Spring Boot Security Starter -->
         <dependency>
@@ -42,6 +37,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!-- Spring Boot WebSocket Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -54,17 +50,16 @@
             <version>3.0.3</version>
         </dependency>
 
-        <!-- H2 Database -->
+        <!-- Databases -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- MySQL Connector for MySQL database -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Add the version here -->
             <scope>runtime</scope>
         </dependency>
 
@@ -86,7 +81,7 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-
+        
         <!-- Jackson for JSON Processing -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
